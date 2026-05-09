@@ -224,22 +224,36 @@
   .swipe-hint { display: none; }
 
   @media (max-width: 767px) {
-    /* Snap on the document */
-    html { scroll-snap-type: y proximity; scroll-padding-top: 0; }
+    /* Snap on the document — mandatory + always for TikTok feel */
+    html, body {
+      scroll-snap-type: y mandatory;
+      scroll-padding-top: 0;
+      scroll-behavior: smooth;
+    }
 
-    /* Each top-level section is a snap target. proximity = free scroll inside long ones */
-    body > section { scroll-snap-align: start; scroll-snap-stop: normal; }
-
-    /* Image-only "slide" sections become full viewport with centered content */
+    /* Image-only "slide" sections become full viewport snap targets */
     body > section.snap-slide {
+      scroll-snap-align: start;
+      scroll-snap-stop: always;
       min-height: 100dvh;
+      height: 100dvh;
       display: flex;
       flex-direction: column;
       justify-content: center;
-      padding-top: 64px;     /* room for fixed header */
+      padding-top: 16px;
       padding-bottom: 96px;  /* room for floating CTA + hint */
       position: relative;
+      overflow: hidden;
     }
+
+    /* Long content sections (FAQ / Join) — NOT snap targets, free scroll */
+    body > section.snap-free {
+      scroll-snap-align: none;
+      min-height: auto;
+    }
+
+    /* Hide fixed header on mobile — it competes with swipe UI */
+    #topbar { display: none; }
     body > section.snap-slide > .max-w-read {
       padding-top: 0 !important;
       padding-bottom: 0 !important;
@@ -316,14 +330,14 @@
     .dots.on-dark a { background: rgba(255,255,255,.30); }
     .dots.on-dark a.active { background: #C9A24A; }
 
-    /* Long sections (FAQ / Join) — let them free-scroll within */
-    body > section.snap-free { min-height: auto; }
-
     /* Hide the desktop SCROLL cue */
     .scroll-cue { display: none; }
 
     /* Reduce vertical padding for snap slides */
     body > section.snap-slide .reveal { transition-duration: .6s; }
+
+    /* Floating CTA — bring above dots */
+    .float-cta { right: 28px; }
   }
 
   @media (prefers-reduced-motion: reduce) {
