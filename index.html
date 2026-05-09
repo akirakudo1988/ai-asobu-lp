@@ -1,0 +1,745 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+<title>AIあそ部｜"見るだけ"の毎日を、"動ける毎日"に変える。</title>
+<meta name="description" content="AI活用の実践コミュニティ「AIあそ部」。月2回の作業会＋いつでも質問チャット＋アーカイブ。1,400名以上のサポート実績。月額4,400円・在籍期間縛りなし。" />
+<meta property="og:title" content="AIあそ部｜"見るだけ"の毎日を、"動ける毎日"に変える。" />
+<meta property="og:description" content="止まっていたあなたの手が、また動き出す。AI活用の実践コミュニティ。" />
+<meta property="og:type" content="website" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@500;700;900&family=Noto+Sans+JP:wght@400;500;700&family=Klee+One:wght@400;600&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet">
+
+<script src="https://cdn.tailwindcss.com?plugins=typography"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          ink:    '#1A1A1A',
+          smoke:  '#5C5C5C',
+          paper:  '#FAF7F2',
+          paper2: '#F2EDE3',
+          mint:   '#B8E6D2',
+          mintD:  '#8FD4B8',
+          navy:   '#1B2A4E',
+          navyD:  '#0F1A33',
+          gold:   '#C9A24A',
+          warm:   '#A8A29E',
+        },
+        fontFamily: {
+          serif: ['"Noto Serif JP"', 'serif'],
+          sans:  ['"Noto Sans JP"', 'sans-serif'],
+          hand:  ['"Klee One"', 'cursive'],
+          num:   ['"Playfair Display"', 'serif'],
+        },
+        boxShadow: {
+          soft:  '0 8px 32px rgba(27,42,78,0.08)',
+          lift:  '0 16px 48px rgba(27,42,78,0.16)',
+        },
+        maxWidth: {
+          read: '1080px',
+        },
+      }
+    }
+  }
+</script>
+
+<style>
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: '"Noto Sans JP"', sans-serif;
+    color: #1A1A1A;
+    background: #FAF7F2;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  .grain::before {
+    content:''; position: fixed; inset: 0;
+    pointer-events: none; z-index: 1;
+    opacity: .035; mix-blend-mode: multiply;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+  }
+
+  .hand  { font-family: '"Klee One"', cursive; }
+  .serif { font-family: '"Noto Serif JP"', serif; }
+  .num   { font-family: '"Playfair Display"', serif; }
+
+  .marker      { background: linear-gradient(180deg, transparent 60%, rgba(184,230,210,.95) 60%); padding: 0 .12em; }
+  .marker-gold { background: linear-gradient(180deg, transparent 62%, rgba(201,162,74,.32) 62%); padding: 0 .12em; }
+
+  .halo {
+    background:
+      radial-gradient(60% 40% at 90% 10%, rgba(184,230,210,.45), transparent 60%),
+      radial-gradient(40% 30% at 10% 90%, rgba(201,162,74,.10), transparent 60%);
+  }
+
+  .navy-bg {
+    background:
+      radial-gradient(50% 60% at 50% 0%, rgba(201,162,74,.10), transparent 60%),
+      linear-gradient(180deg, #1B2A4E 0%, #0F1A33 100%);
+  }
+
+  .particles { position: absolute; inset: 0; overflow: hidden; pointer-events: none; }
+  .particles span {
+    position: absolute; bottom: -10px;
+    width: 3px; height: 3px; border-radius: 50%;
+    background: rgba(201,162,74,.7);
+    box-shadow: 0 0 6px rgba(201,162,74,.5);
+    animation: rise linear infinite;
+  }
+  @keyframes rise {
+    0%   { transform: translateY(0) translateX(0); opacity: 0; }
+    10%  { opacity: 1; }
+    100% { transform: translateY(-110vh) translateX(20px); opacity: 0; }
+  }
+
+  .btn-cta {
+    display: inline-flex; align-items: center; justify-content: center; gap:.6rem;
+    padding: 1.1rem 2.2rem;
+    background: #B8E6D2; color: #1A1A1A;
+    font-weight: 700; border-radius: 999px;
+    box-shadow: 0 8px 24px rgba(27,42,78,.14), inset 0 -2px 0 rgba(0,0,0,.04);
+    transition: all .25s cubic-bezier(.4,0,.2,1);
+    will-change: transform;
+  }
+  .btn-cta .arrow { transition: transform .25s cubic-bezier(.4,0,.2,1); }
+  .btn-cta:hover  { background:#8FD4B8; transform: translateY(-2px); box-shadow: 0 12px 28px rgba(27,42,78,.20); }
+  .btn-cta:hover .arrow { transform: translateX(4px); }
+  .btn-cta:active { transform: translateY(0) scale(.98); }
+
+  .btn-ghost {
+    display: inline-flex; align-items: center; gap:.4rem;
+    padding:.6rem 1.2rem; border-radius:999px;
+    background: rgba(255,255,255,.7);
+    border: 1px solid rgba(27,42,78,.12);
+    font-weight: 700; font-size: 14px;
+    transition: all .25s ease;
+  }
+  .btn-ghost:hover { background:#fff; border-color: rgba(27,42,78,.28); }
+
+  .reveal { opacity: 0; transform: translateY(16px); transition: opacity .9s ease-out, transform .9s ease-out; }
+  .reveal.in { opacity: 1; transform: none; }
+
+  .card {
+    background: #fff; border-radius: 20px;
+    box-shadow: 0 8px 32px rgba(27,42,78,.07);
+    border: 1px solid rgba(27,42,78,.05);
+  }
+
+  .divider {
+    width: 64px; height: 4px; border-radius: 4px;
+    background: linear-gradient(90deg, #B8E6D2, #C9A24A);
+    margin: 0 auto;
+  }
+
+  /* image presentation — image-first design */
+  .img-hero img {
+    display: block; width: 100%; height: auto;
+    border-radius: 28px;
+    box-shadow:
+      0 32px 80px rgba(27,42,78,.12),
+      0 8px 24px rgba(27,42,78,.06);
+    background: #fff;
+  }
+  .img-hero {
+    position: relative;
+    transition: transform .6s cubic-bezier(.2,.8,.2,1);
+  }
+  .img-hero::before {
+    content:''; position:absolute; inset:-18px;
+    border-radius: 36px;
+    background: radial-gradient(60% 50% at 50% 50%, rgba(201,162,74,.10), transparent 70%);
+    z-index:-1;
+  }
+  .img-on-dark img { background: #FAF7F2; }
+
+  /* FAQ */
+  details.faq {
+    border-bottom: 1px solid rgba(27,42,78,.10);
+    padding: 1.25rem 0;
+  }
+  details.faq > summary {
+    list-style: none; cursor: pointer;
+    display: flex; align-items: flex-start; gap: 1rem;
+    font-weight: 700; font-size: 1.05rem; line-height: 1.6;
+  }
+  details.faq > summary::-webkit-details-marker { display: none; }
+  details.faq .q-mark {
+    flex: none; font-family: '"Playfair Display"', serif; font-style: italic;
+    font-size: 1.5rem; color: #C9A24A; line-height: 1;
+  }
+  details.faq .toggle {
+    margin-left: auto; width: 28px; height: 28px; border-radius: 999px;
+    border: 1px solid rgba(27,42,78,.18);
+    display: grid; place-items: center;
+    transition: transform .3s ease, background .3s ease; flex: none;
+  }
+  details.faq[open] .toggle { transform: rotate(45deg); background: #B8E6D2; border-color: transparent; }
+  details.faq .a {
+    margin-top: .9rem; margin-left: 2.4rem;
+    color: #5C5C5C; font-size: .98rem; line-height: 1.95;
+    animation: faqOpen .35s ease-out;
+  }
+  @keyframes faqOpen { from { opacity:0; transform: translateY(-4px);} to { opacity:1; transform:none;} }
+
+  .float-cta {
+    position: fixed; left: 16px; right: 16px; bottom: 16px;
+    z-index: 60; transform: translateY(120%);
+    transition: transform .4s cubic-bezier(.2,.8,.2,1);
+  }
+  .float-cta.show { transform: translateY(0); }
+
+  .serial { font-family: '"Playfair Display"', serif; font-style: italic; color: #C9A24A; letter-spacing: .08em; }
+
+  .topbar {
+    backdrop-filter: saturate(180%) blur(14px);
+    -webkit-backdrop-filter: saturate(180%) blur(14px);
+    background: rgba(250,247,242,.78);
+    border-bottom: 1px solid rgba(27,42,78,.06);
+  }
+
+  .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+
+  a { -webkit-tap-highlight-color: transparent; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .reveal { opacity:1; transform:none; transition:none; }
+    .particles span { display:none; }
+  }
+
+  /* ============================================
+     MOBILE: TikTok-like swipe / scroll-snap mode
+     ============================================ */
+  /* Vertical dots indicator (mobile only) */
+  .dots {
+    display: none;
+  }
+
+  /* swipe hint */
+  .swipe-hint { display: none; }
+
+  @media (max-width: 767px) {
+    /* Snap on the document */
+    html { scroll-snap-type: y proximity; scroll-padding-top: 0; }
+
+    /* Each top-level section is a snap target. proximity = free scroll inside long ones */
+    body > section { scroll-snap-align: start; scroll-snap-stop: normal; }
+
+    /* Image-only "slide" sections become full viewport with centered content */
+    body > section.snap-slide {
+      min-height: 100dvh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding-top: 64px;     /* room for fixed header */
+      padding-bottom: 96px;  /* room for floating CTA + hint */
+      position: relative;
+    }
+    body > section.snap-slide > .max-w-read {
+      padding-top: 0 !important;
+      padding-bottom: 0 !important;
+    }
+    /* Constrain hero image to fit one viewport */
+    body > section.snap-slide .img-hero img {
+      max-height: 64dvh;
+      width: auto;
+      max-width: 100%;
+      margin: 0 auto;
+    }
+    body > section.snap-slide .img-hero {
+      display: flex;
+      justify-content: center;
+    }
+
+    /* Swipe-up hint at bottom of each slide */
+    .swipe-hint {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      position: absolute;
+      bottom: 84px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 10px;
+      letter-spacing: .25em;
+      color: rgba(26,26,26,.45);
+      pointer-events: none;
+      animation: bounce 2.2s ease-in-out infinite;
+    }
+    .swipe-hint.on-dark { color: rgba(255,255,255,.6); }
+    .swipe-hint .arrow-down {
+      width: 14px; height: 14px;
+      border-right: 1.5px solid currentColor;
+      border-bottom: 1.5px solid currentColor;
+      transform: rotate(45deg);
+    }
+    @keyframes bounce {
+      0%, 100% { transform: translateX(-50%) translateY(0); opacity:.55; }
+      50%      { transform: translateX(-50%) translateY(6px); opacity: 1; }
+    }
+
+    /* Vertical dots progress (right edge) */
+    .dots {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      position: fixed;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 55;
+      padding: 8px 6px;
+      background: rgba(250,247,242,.55);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border-radius: 999px;
+      border: 1px solid rgba(27,42,78,.06);
+    }
+    .dots a {
+      width: 6px; height: 6px; border-radius: 999px;
+      background: rgba(27,42,78,.20);
+      transition: all .25s ease;
+      display: block;
+    }
+    .dots a.active {
+      background: #C9A24A;
+      transform: scale(1.6);
+      box-shadow: 0 0 6px rgba(201,162,74,.5);
+    }
+    .dots.on-dark { background: rgba(15,26,51,.45); border-color: rgba(255,255,255,.08); }
+    .dots.on-dark a { background: rgba(255,255,255,.30); }
+    .dots.on-dark a.active { background: #C9A24A; }
+
+    /* Long sections (FAQ / Join) — let them free-scroll within */
+    body > section.snap-free { min-height: auto; }
+
+    /* Hide the desktop SCROLL cue */
+    .scroll-cue { display: none; }
+
+    /* Reduce vertical padding for snap slides */
+    body > section.snap-slide .reveal { transition-duration: .6s; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-snap-type: none; }
+    .swipe-hint { animation: none; }
+  }
+</style>
+</head>
+<body class="grain antialiased">
+
+<!-- ===== Header ===== -->
+<header id="topbar" class="topbar fixed inset-x-0 top-0 z-50 transition-opacity duration-500 opacity-0">
+  <div class="max-w-read mx-auto px-5 h-14 flex items-center justify-between">
+    <a href="#top" class="flex items-center gap-2">
+      <span class="serif font-black tracking-tight text-ink">AIあそ部</span>
+      <span class="hidden sm:inline text-[11px] text-smoke">AI Asobu Community</span>
+    </a>
+    <a href="#join" class="btn-ghost">参加する <span aria-hidden="true">→</span></a>
+  </div>
+</header>
+
+<!-- ===== HERO ===== -->
+<section id="top" data-slide="1" class="snap-slide halo relative overflow-hidden">
+  <div class="max-w-read mx-auto px-5 pt-24 sm:pt-28 pb-16 sm:pb-20">
+
+    <div class="text-center mb-10 reveal">
+      <span class="inline-flex items-center gap-1.5 text-[11px] font-bold tracking-[.12em] text-navy/80 bg-white/80 border border-navy/10 px-3 py-1 rounded-full">
+        <span class="w-1.5 h-1.5 rounded-full bg-mint"></span>
+        AI活用の実践コミュニティ
+      </span>
+      <p class="serial text-xs mt-3">No. 01 / Hero</p>
+    </div>
+
+    <!-- IMAGE-FIRST hero -->
+    <div class="img-hero max-w-[520px] mx-auto reveal">
+      <img src="ChatGPT%20Image%202026%E5%B9%B45%E6%9C%889%E6%97%A5%2012_09_46%20(1).png"
+           alt='見るだけの毎日を、動ける毎日に変える。AI活用の実践コミュニティ「AIあそ部」'>
+    </div>
+
+    <!-- minimal text under hero (SEO + CTA only) -->
+    <div class="mt-12 max-w-2xl mx-auto text-center reveal">
+      <h1 class="sr-only">AIあそ部｜"見るだけ"の毎日を、"動ける毎日"に変える</h1>
+      <a href="#join" class="btn-cta text-[16px] sm:text-[18px]">
+        今すぐAIあそ部に参加する <span class="arrow" aria-hidden="true">→</span>
+      </a>
+      <p class="mt-4 text-[12px] text-smoke">
+        在籍期間縛りなし／いつでも退会OK　・　月額 ¥4,400（税込）
+      </p>
+    </div>
+
+    <div class="mt-12 flex flex-wrap justify-center gap-x-8 gap-y-2 text-[12px] text-smoke reveal">
+      <span>✓ 1,400名以上のサポート実績</span>
+      <span>✓ 月2回のオンライン作業会</span>
+      <span>✓ 質問チャット常時稼働</span>
+    </div>
+  </div>
+</section>
+
+<!-- ===== §02 共感パート ===== -->
+<section data-slide="2" class="snap-slide bg-paper2/40 border-y border-ink/5">
+  <div class="max-w-read mx-auto px-5 py-20 sm:py-24">
+    <div class="text-center reveal">
+      <p class="serial text-xs mb-4">No. 02 / Empathy</p>
+    </div>
+    <div class="img-hero max-w-[560px] mx-auto reveal">
+      <img src="ChatGPT%20Image%202026%E5%B9%B45%E6%9C%889%E6%97%A5%2012_09_46%20(2).png"
+           alt='こんなこと、ありませんか？AIを使いたいのに、気づけば「見るだけ」で止まっている…。動画を見る→ブックマーク保存→結局やっていない→自分には向いていないのかな…。大丈夫。止まってるのは、あなただけじゃありません。'>
+    </div>
+  </div>
+</section>
+
+<!-- ===== §03 5つの壁 ===== -->
+<section data-slide="3" class="snap-slide relative">
+  <div class="max-w-read mx-auto px-5 py-20 sm:py-24">
+    <div class="text-center reveal">
+      <p class="serial text-xs mb-4">No. 03 / Five Walls</p>
+    </div>
+    <div class="img-hero max-w-[560px] mx-auto reveal">
+      <img src="ChatGPT%20Image%202026%E5%B9%B45%E6%9C%889%E6%97%A5%2012_09_46%20(3).png"
+           alt='みんな、同じところで止まります。1,400名以上をサポートして見えてきた5つの壁：①登録・設定で止まる ②プロンプトで迷う ③出力がちょっと違う ④自分らしく直せない ⑤発信・集客につなげられない。あなたが悪いんじゃない。一人だと、ここで詰まりやすい。'>
+    </div>
+  </div>
+</section>
+
+<!-- ===== §04 解決提示 ===== -->
+<section data-slide="4" class="snap-slide relative navy-bg text-white overflow-hidden">
+  <div class="particles" aria-hidden="true">
+    <span style="left:5%;  width:2px; height:2px; animation-duration: 28s;"></span>
+    <span style="left:18%; animation-duration: 36s; animation-delay: 4s;"></span>
+    <span style="left:30%; width:2px; height:2px; animation-duration: 40s; animation-delay: 9s;"></span>
+    <span style="left:42%; animation-duration: 32s; animation-delay: 2s;"></span>
+    <span style="left:55%; animation-duration: 44s; animation-delay: 13s;"></span>
+    <span style="left:68%; width:2px; height:2px; animation-duration: 30s; animation-delay: 6s;"></span>
+    <span style="left:80%; animation-duration: 38s; animation-delay: 11s;"></span>
+    <span style="left:92%; width:2px; height:2px; animation-duration: 34s; animation-delay: 17s;"></span>
+  </div>
+
+  <div class="relative max-w-read mx-auto px-5 py-24 sm:py-28">
+    <div class="text-center reveal">
+      <p class="serial text-xs mb-4 text-gold">No. 04 / Answer</p>
+    </div>
+    <div class="img-hero img-on-dark max-w-[560px] mx-auto reveal">
+      <img src="ChatGPT%20Image%202026%E5%B9%B45%E6%9C%889%E6%97%A5%2012_09_46%20(4).png"
+           alt='だから、一人で抱えない場所を作りました。AIあそ部は、AIを「使えるようになる」ためのオンラインコミュニティ。手を動かす／すぐ聞ける／仲間と進める。教わって終わりじゃなく、遊ぶように実践。'>
+    </div>
+  </div>
+</section>
+
+<!-- ===== §05 提供内容 ===== -->
+<section data-slide="5" class="snap-slide relative">
+  <div class="max-w-read mx-auto px-5 py-20 sm:py-24">
+    <div class="text-center reveal">
+      <p class="serial text-xs mb-4">No. 05 / What's Inside</p>
+    </div>
+    <div class="img-hero max-w-[560px] mx-auto reveal">
+      <img src="ChatGPT%20Image%202026%E5%B9%B45%E6%9C%889%E6%97%A5%2012_09_46%20(5).png"
+           alt='AIあそ部でできること。「知る」だけで終わらせない、3つの仕組み。①月2回のオンライン勉強会・作業会 ②いつでも聞ける質問チャット ③アーカイブ視聴。ChatGPTなど目的やレベルに合うAIツールも紹介。'>
+    </div>
+  </div>
+</section>
+
+<!-- ===== §06 ビフォーアフター ===== -->
+<section data-slide="6" class="snap-slide bg-paper2/40 border-y border-ink/5">
+  <div class="max-w-read mx-auto px-5 py-20 sm:py-24">
+    <div class="text-center reveal">
+      <p class="serial text-xs mb-4">No. 06 / Before & After</p>
+    </div>
+    <div class="img-hero max-w-[560px] mx-auto reveal">
+      <img src="ChatGPT%20Image%202026%E5%B9%B45%E6%9C%889%E6%97%A5%2012_09_46%20(6).png"
+           alt='変わるのは、知識量じゃなくて「動けるかどうか」。Before：見ても結局やらない／ブックマークが増えるだけ／諦めかける／ちょっと焦る。After：その日のうちに動ける／分からなければすぐ聞ける／できたが積み上がる／AIが日常の道具に。'>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Mid CTA ===== -->
+<section data-slide="7" class="snap-slide relative navy-bg text-white overflow-hidden">
+  <div class="particles" aria-hidden="true">
+    <span style="left:10%; animation-duration: 30s;"></span>
+    <span style="left:35%; animation-duration: 38s; animation-delay: 5s;"></span>
+    <span style="left:60%; animation-duration: 32s; animation-delay: 9s;"></span>
+    <span style="left:85%; animation-duration: 42s; animation-delay: 14s;"></span>
+  </div>
+  <div class="relative max-w-read mx-auto px-5 py-16 sm:py-20 text-center reveal">
+    <p class="hand text-mint text-[18px]">いま動けば、来月のあなたは違う。</p>
+    <h3 class="serif font-black text-[26px] sm:text-[36px] mt-3 leading-snug">
+      止まっていた手を、<span class="marker-gold text-white">もう一度動かす。</span>
+    </h3>
+    <a href="#join" class="btn-cta mt-8 text-[17px]">
+      部活に参加してみる <span class="arrow" aria-hidden="true">→</span>
+    </a>
+    <p class="mt-4 text-[12px] text-white/70">在籍期間縛りなし／いつでも退会OK</p>
+  </div>
+</section>
+
+<!-- ===== §07 おすすめ／向かない方 ===== -->
+<section data-slide="8" class="snap-slide relative">
+  <div class="max-w-read mx-auto px-5 py-20 sm:py-24">
+    <div class="text-center reveal">
+      <p class="serial text-xs mb-4">No. 07 / For You ?</p>
+    </div>
+    <div class="img-hero max-w-[560px] mx-auto reveal">
+      <img src="ChatGPT%20Image%202026%E5%B9%B45%E6%9C%889%E6%97%A5%2012_09_46%20(7).png"
+           alt='こんな方におすすめです。「前に進みたいけど止まっている人」のための場所。おすすめ：何から始めればいいか分からない／情報は集めるけど実践できない／途中で止まった／一人だと続かない／SNSや仕事に活かしたい。向かない方：最先端情報だけ欲しい／一人で黙々と進めたい／教えてもらうだけ／短期で劇的成果を求める。'>
+    </div>
+  </div>
+</section>
+
+<!-- ===== §08 運営者紹介 ===== -->
+<section data-slide="9" class="snap-slide bg-paper2/40 border-y border-ink/5">
+  <div class="max-w-read mx-auto px-5 py-20 sm:py-24">
+    <div class="text-center reveal">
+      <p class="serial text-xs mb-4">No. 08 / Founder</p>
+    </div>
+    <div class="img-hero max-w-[480px] mx-auto reveal">
+      <img src="ChatGPT%20Image%202026%E5%B9%B45%E6%9C%889%E6%97%A5%2012_09_46%20(8).png"
+           alt='運営している人：工藤晶（くどう あきら）。AI講師／AIあそ部 部長。1,400名以上のAI活用をサポート。「一人で抱えない場所」をつくりました。AIは人生を豊かにする手段。行動でしか、差は生まれない。'>
+    </div>
+  </div>
+</section>
+
+<!-- ===== §09 FAQ（インタラクティブ要素として残す） ===== -->
+<section data-slide="10" class="snap-free relative">
+  <div class="max-w-3xl mx-auto px-5 py-20 sm:py-24">
+    <div class="text-center reveal">
+      <p class="serial text-xs mb-4">No. 09 / FAQ</p>
+      <h2 class="serif font-black text-[28px] sm:text-[40px] leading-snug">よくある質問</h2>
+      <div class="divider mt-6"></div>
+    </div>
+
+    <div class="mt-12 reveal">
+      <details class="faq">
+        <summary><span class="q-mark">Q.</span><span>AIスクールとはどう違うの？</span><span class="toggle" aria-hidden="true">+</span></summary>
+        <p class="a">スクールは"教わる場所"、AIあそ部は"実践しながら身につける場所"です。月2回みんなで集まって手を動かしたり、質問チャットで困りごとを共有したり。教わって終わりじゃなく、使えるようになるまで伴走するイメージです。</p>
+      </details>
+      <details class="faq">
+        <summary><span class="q-mark">Q.</span><span>初心者でも大丈夫ですか？</span><span class="toggle" aria-hidden="true">+</span></summary>
+        <p class="a">むしろ初心者にこそおすすめです。「動画で見ればわかるけど、一人だと止まる」を解消するために作りました。登録で迷う、プロンプトで迷う、というところから一緒にやっていきます。</p>
+      </details>
+      <details class="faq">
+        <summary><span class="q-mark">Q.</span><span>ChatGPTは使ったことがないのですが、参加できますか？</span><span class="toggle" aria-hidden="true">+</span></summary>
+        <p class="a">もちろん大丈夫です。登録の仕方や基本の使い方から、一緒に進めていきます。</p>
+      </details>
+      <details class="faq">
+        <summary><span class="q-mark">Q.</span><span>周りについていけるか不安です…</span><span class="toggle" aria-hidden="true">+</span></summary>
+        <p class="a">大丈夫です。AIあそ部は"先に進んでいる人"のための場所ではなく、"止まっている人が動き出す"ための場所です。比べる必要も、急ぐ必要もありません。自分のペースで進められるように設計しています。</p>
+      </details>
+      <details class="faq">
+        <summary><span class="q-mark">Q.</span><span>質問するのが苦手なんですが、それでも参加できますか？</span><span class="toggle" aria-hidden="true">+</span></summary>
+        <p class="a">大丈夫です。最初は見ているだけ、聞いているだけでもOKです。慣れてきたら、自分のタイミングで質問してみてください。「こんなこと聞いていいのかな」と思うレベルの質問こそ、歓迎です。</p>
+      </details>
+      <details class="faq">
+        <summary><span class="q-mark">Q.</span><span>過去にコミュニティや講座で挫折した経験があります。今度こそ続けられるか不安です。</span><span class="toggle" aria-hidden="true">+</span></summary>
+        <p class="a">その気持ち、よく分かります。だからこそ、AIあそ部は"続けやすさ"を最優先に設計しています。月2回のゆるいペース、アーカイブ視聴、気軽に聞ける質問チャット。「続けられない理由」を、できる限り取り除いています。</p>
+      </details>
+      <details class="faq">
+        <summary><span class="q-mark">Q.</span><span>どれくらい時間が必要ですか？</span><span class="toggle" aria-hidden="true">+</span></summary>
+        <p class="a">月2回の勉強会（各60分）に出られるとベストですが、参加できなかった回はアーカイブで後から見られます。忙しい時期は無理せず、自分のペースでOKです。</p>
+      </details>
+      <details class="faq">
+        <summary><span class="q-mark">Q.</span><span>リアルタイムの勉強会に参加できない月があっても大丈夫ですか？</span><span class="toggle" aria-hidden="true">+</span></summary>
+        <p class="a">まったく問題ありません。アーカイブで後から見られますし、質問チャットは常時動いています。「毎回出られないから諦める」必要は、一切ありません。</p>
+      </details>
+      <details class="faq">
+        <summary><span class="q-mark">Q.</span><span>何ができるようになりますか？</span><span class="toggle" aria-hidden="true">+</span></summary>
+        <p class="a">日々のSNS発信、AI画像作成、公式LINE活用、集客導線づくりなどに、AIを実際に使えるようになることを目指しています。"知識を増やす"ではなく、"日常で使える"がゴールです。</p>
+      </details>
+      <details class="faq">
+        <summary><span class="q-mark">Q.</span><span>退会したいときはどうすればいいですか？</span><span class="toggle" aria-hidden="true">+</span></summary>
+        <p class="a">いつでも退会できます。在籍期間の縛りもありません。「合わなかったら気軽に抜ける」で問題ない設計にしています。</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- ===== §10 料金・参加方法（インタラクティブ要素として残す） ===== -->
+<section id="join" data-slide="11" class="snap-free bg-paper2/40 border-t border-ink/5">
+  <div class="max-w-read mx-auto px-5 py-20 sm:py-28">
+    <div class="text-center reveal">
+      <p class="serial text-xs mb-4">No. 10 / Join</p>
+      <h2 class="serif font-black text-[28px] sm:text-[42px] leading-snug">参加方法</h2>
+      <div class="divider mt-6"></div>
+    </div>
+
+    <!-- 補助画像 -->
+    <div class="img-hero max-w-[420px] mx-auto mt-12 reveal">
+      <img src="ChatGPT%20Image%202026%E5%B9%B45%E6%9C%889%E6%97%A5%2012_09_46%20(9).png"
+           alt='FAQと参加方法の概要：月額4,400円（税込）／月2回の勉強会・質問チャット・アーカイブ視聴・限定情報共有。申込→決済→招待が届く。'>
+    </div>
+
+    <!-- pricing card -->
+    <div class="mt-14 max-w-[560px] mx-auto reveal">
+      <div class="card p-8 sm:p-10 relative overflow-hidden">
+        <div class="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-mint to-gold"></div>
+        <p class="hand text-gold">Monthly Plan</p>
+        <div class="mt-3 flex items-baseline gap-2">
+          <span class="num text-[64px] sm:text-[80px] leading-none font-bold text-ink">¥4,400</span>
+          <span class="text-smoke">/月（税込）</span>
+        </div>
+        <ul class="mt-7 space-y-3 text-[15px]">
+          <li class="flex gap-3"><span class="text-mintD font-bold">✓</span>月2回のオンライン勉強会・作業会</li>
+          <li class="flex gap-3"><span class="text-mintD font-bold">✓</span>質問チャットへのアクセス</li>
+          <li class="flex gap-3"><span class="text-mintD font-bold">✓</span>過去アーカイブの視聴</li>
+          <li class="flex gap-3"><span class="text-mintD font-bold">✓</span>メンバー限定の情報共有</li>
+        </ul>
+
+        <a href="#" class="btn-cta w-full mt-8 text-[17px]">
+          参加を申し込む <span class="arrow" aria-hidden="true">→</span>
+        </a>
+        <p class="mt-3 text-center text-[12px] text-smoke">
+          在籍期間縛りなし／カード1分で完了／いつでも退会OK
+        </p>
+      </div>
+    </div>
+
+    <p class="mt-10 text-center text-[13px] text-smoke reveal">
+      在籍期間の縛りはありません。「ちょっと試してみる」感覚で、気軽に参加してください。
+    </p>
+  </div>
+</section>
+
+<!-- ===== §11 クロージング ===== -->
+<section data-slide="12" class="snap-slide relative navy-bg text-white overflow-hidden">
+  <div class="particles" aria-hidden="true">
+    <span style="left:4%;  animation-duration: 28s;"></span>
+    <span style="left:14%; animation-duration: 36s; animation-delay: 4s;"></span>
+    <span style="left:24%; animation-duration: 40s; animation-delay: 9s;"></span>
+    <span style="left:36%; animation-duration: 32s; animation-delay: 2s;"></span>
+    <span style="left:48%; animation-duration: 44s; animation-delay: 13s;"></span>
+    <span style="left:60%; animation-duration: 30s; animation-delay: 6s;"></span>
+    <span style="left:72%; animation-duration: 38s; animation-delay: 11s;"></span>
+    <span style="left:86%; animation-duration: 34s; animation-delay: 17s;"></span>
+    <span style="left:96%; animation-duration: 42s; animation-delay: 1s;"></span>
+  </div>
+
+  <div class="relative max-w-read mx-auto px-5 py-24 sm:py-32 text-center">
+    <p class="serial text-xs mb-6 text-gold">No. 11 / Closing</p>
+
+    <div class="img-hero img-on-dark max-w-[480px] mx-auto reveal">
+      <img src="ChatGPT%20Image%202026%E5%B9%B45%E6%9C%889%E6%97%A5%2012_09_46%20(10).png"
+           alt='行動でしか、差は生まれない。情報を集める時間は、もう十分。足りなかったのは「一緒に動ける場所」。止まっていた手を、ここからもう一度。'>
+    </div>
+
+    <div class="mt-12 reveal">
+      <a href="#join" class="btn-cta text-[17px] sm:text-[19px] px-10 py-5">
+        今すぐAIあそ部に参加する <span class="arrow" aria-hidden="true">→</span>
+      </a>
+      <p class="mt-4 text-[12px] text-white/70">在籍期間縛りなし／いつでも退会OK</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Footer ===== -->
+<footer class="bg-navyD text-white/70">
+  <div class="max-w-read mx-auto px-5 py-12 grid sm:grid-cols-2 gap-6 items-center">
+    <div>
+      <p class="serif font-black text-white text-lg">AIあそ部</p>
+      <p class="text-[12px] mt-1">AI活用の実践コミュニティ</p>
+    </div>
+    <div class="text-[12px] sm:text-right">
+      <p>運営：工藤 晶（AI講師／AIあそ部 部長）</p>
+      <p class="mt-1">© AIあそ部. All rights reserved.</p>
+    </div>
+  </div>
+</footer>
+
+<!-- ===== Floating Mobile CTA ===== -->
+<a id="floatcta" href="#join" class="float-cta sm:hidden">
+  <div class="btn-cta w-full text-[16px]">
+    今すぐ参加する <span class="arrow" aria-hidden="true">→</span>
+  </div>
+</a>
+
+<!-- ===== Mobile: vertical progress dots ===== -->
+<nav class="dots" id="dots" aria-label="セクションナビ"></nav>
+
+<script>
+  /* ----- Reveal on scroll ----- */
+  const io = new IntersectionObserver((entries) => {
+    for (const e of entries) {
+      if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+    }
+  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+  /* ----- Header + floating CTA ----- */
+  const topbar = document.getElementById('topbar');
+  const floatCta = document.getElementById('floatcta');
+  const onScroll = () => {
+    const y = window.scrollY;
+    topbar.classList.toggle('opacity-100', y > 220);
+    topbar.classList.toggle('opacity-0', y <= 220);
+    if (floatCta) floatCta.classList.toggle('show', y > 600);
+  };
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+
+  /* ----- Mobile: build dots + swipe hints + active tracking ----- */
+  (() => {
+    const sections = Array.from(document.querySelectorAll('section[data-slide]'));
+    const dots = document.getElementById('dots');
+    if (!dots || !sections.length) return;
+
+    // build dots
+    sections.forEach((s) => {
+      const n = s.dataset.slide;
+      const a = document.createElement('a');
+      a.href = '#' + (s.id || 'slide-' + n);
+      if (!s.id) s.id = 'slide-' + n;
+      a.dataset.target = s.id;
+      a.setAttribute('aria-label', 'セクション ' + n);
+      dots.appendChild(a);
+    });
+
+    // inject swipe-up hint into each .snap-slide (skip the last one)
+    const slides = document.querySelectorAll('section.snap-slide');
+    slides.forEach((s, i) => {
+      if (i === slides.length - 1) return; // skip last (closing)
+      const isDark = s.classList.contains('navy-bg');
+      const hint = document.createElement('div');
+      hint.className = 'swipe-hint' + (isDark ? ' on-dark' : '');
+      hint.innerHTML = '<span>SWIPE</span><span class="arrow-down"></span>';
+      s.appendChild(hint);
+    });
+
+    // active dot tracking
+    const dotEls = dots.querySelectorAll('a');
+    const setActive = (id) => {
+      dotEls.forEach(d => d.classList.toggle('active', d.dataset.target === id));
+      // also flip dot color theme depending on the section bg
+      const cur = document.getElementById(id);
+      if (!cur) return;
+      const dark = cur.classList.contains('navy-bg');
+      dots.classList.toggle('on-dark', dark);
+    };
+
+    const slideIo = new IntersectionObserver((entries) => {
+      // pick the entry with largest intersectionRatio that's intersecting
+      let best = null;
+      entries.forEach(e => {
+        if (e.isIntersecting && (!best || e.intersectionRatio > best.intersectionRatio)) best = e;
+      });
+      if (best) setActive(best.target.id);
+    }, { threshold: [0.4, 0.6, 0.8] });
+
+    sections.forEach(s => slideIo.observe(s));
+
+    // smooth scroll for dot clicks
+    dotEls.forEach(d => {
+      d.addEventListener('click', (ev) => {
+        ev.preventDefault();
+        const t = document.getElementById(d.dataset.target);
+        if (t) t.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    });
+  })();
+</script>
+
+</body>
+</html>
