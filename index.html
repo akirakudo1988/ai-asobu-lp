@@ -112,6 +112,15 @@
   .btn-cta:hover .arrow { transform: translateX(4px); }
   .btn-cta:active { transform: translateY(0) scale(.98); }
 
+  /* Mid-CTA pulse — soft halo expanding */
+  @keyframes pulseHalo {
+    0%   { box-shadow: 0 8px 24px rgba(27,42,78,.14), 0 0 0 0 rgba(184,230,210,.55); }
+    70%  { box-shadow: 0 8px 24px rgba(27,42,78,.14), 0 0 0 18px rgba(184,230,210,0); }
+    100% { box-shadow: 0 8px 24px rgba(27,42,78,.14), 0 0 0 0 rgba(184,230,210,0); }
+  }
+  .btn-cta-pulse { animation: pulseHalo 2.6s ease-out infinite; }
+  @media (prefers-reduced-motion: reduce) { .btn-cta-pulse { animation: none; } }
+
   .btn-ghost {
     display: inline-flex; align-items: center; gap:.4rem;
     padding:.6rem 1.2rem; border-radius:999px;
@@ -297,32 +306,26 @@
       padding-bottom: 0 !important;
     }
 
-    /* === HERO (slide 1): has badge + CTA + safety bullets, so smaller image === */
+    /* === HERO (slide 1): badge + image + CTA only — image larger === */
     body > section[data-slide="1"] {
-      justify-content: flex-start;
-      padding-top: 36px;
+      justify-content: center;
+      padding-top: 16px;
       padding-bottom: 24px;
     }
     body > section[data-slide="1"] .img-hero img {
-      max-height: 48dvh;
-    }
-    body > section[data-slide="1"] .img-hero {
-      margin-top: 16px;
-    }
-    body > section[data-slide="1"] .mt-12 {
-      margin-top: 20px !important;
+      max-height: 60dvh;
     }
 
-    /* === CLOSING (slide 12): has CTA + needs footer visible === */
-    body > section[data-slide="12"] {
+    /* === CLOSING (slide 15): has CTA + needs footer visible === */
+    body > section[data-slide="15"] {
       justify-content: flex-start;
       padding-top: 28px;
       padding-bottom: 16px;
     }
-    body > section[data-slide="12"] .img-hero img {
-      max-height: 44dvh;
+    body > section[data-slide="15"] .img-hero img {
+      max-height: 42dvh;
     }
-    body > section[data-slide="12"] .mt-12 {
+    body > section[data-slide="15"] .mt-12 {
       margin-top: 16px !important;
     }
     /* Hide floating CTA on the last slide so it doesn't cover the closing CTA */
@@ -419,11 +422,11 @@
   </div>
 </header>
 
-<!-- ===== HERO ===== -->
+<!-- ===== HERO（画像＋CTAのみ） ===== -->
 <section id="top" data-slide="1" class="snap-slide halo relative overflow-hidden">
   <div class="max-w-read mx-auto px-5 pt-24 sm:pt-28 pb-16 sm:pb-20">
 
-    <div class="text-center mb-10 reveal">
+    <div class="text-center mb-6 reveal">
       <span class="inline-flex items-center gap-1.5 text-[11px] font-bold tracking-[.12em] text-navy/80 bg-white/80 border border-navy/10 px-3 py-1 rounded-full">
         <span class="w-1.5 h-1.5 rounded-full bg-mint"></span>
         AI活用の実践コミュニティ
@@ -431,33 +434,60 @@
       <p class="serial text-xs mt-3">No. 01 / Hero</p>
     </div>
 
-    <!-- IMAGE-FIRST hero -->
     <div class="img-hero max-w-[520px] mx-auto reveal">
       <img src="ChatGPT%20Image%202026%E5%B9%B45%E6%9C%889%E6%97%A5%2012_09_46%20(1).png"
            alt='見るだけの毎日を、動ける毎日に変える。AI活用の実践コミュニティ「AIあそ部」'>
     </div>
 
-    <!-- minimal text under hero (SEO + CTA only) -->
-    <div class="mt-12 max-w-2xl mx-auto text-center reveal">
+    <div class="mt-8 max-w-2xl mx-auto text-center reveal">
       <h1 class="sr-only">AIあそ部｜"見るだけ"の毎日を、"動ける毎日"に変える</h1>
       <a href="#join" class="btn-cta text-[16px] sm:text-[18px]">
         今すぐAIあそ部に参加する <span class="arrow" aria-hidden="true">→</span>
       </a>
-      <p class="mt-4 text-[12px] text-smoke">
-        在籍期間縛りなし／いつでも退会OK　・　月額 ¥4,400（税込）
-      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== §1.5 HERO 補足（3つの強み） ===== -->
+<section data-slide="2" class="snap-slide halo relative overflow-hidden">
+  <div class="max-w-read mx-auto px-5 py-20 sm:py-24">
+    <div class="text-center reveal flex-none">
+      <p class="serial text-xs mb-4">No. 02 / Why Us</p>
+      <h2 class="serif font-black text-[28px] sm:text-[40px] leading-snug">
+        選ばれる、3つの理由。
+      </h2>
+      <div class="divider mt-6"></div>
     </div>
 
-    <div class="mt-12 flex flex-wrap justify-center gap-x-8 gap-y-2 text-[12px] text-smoke reveal">
-      <span>✓ 1,400名以上のサポート実績</span>
-      <span>✓ 月2回のオンライン作業会</span>
-      <span>✓ 質問チャット常時稼働</span>
+    <div class="mt-10 sm:mt-14 grid sm:grid-cols-3 gap-5 max-w-3xl mx-auto reveal">
+      <article class="card p-6 sm:p-7 text-center hover:shadow-lift transition">
+        <p class="num text-[44px] sm:text-[52px] text-gold leading-none">1,400<span class="text-[20px] sm:text-[26px]">+</span></p>
+        <p class="mt-2 text-[13px] tracking-wider text-smoke font-bold">SUPPORTED</p>
+        <p class="mt-3 text-[15px] font-bold leading-relaxed">1,400名以上の<br>AI活用サポート実績</p>
+      </article>
+      <article class="card p-6 sm:p-7 text-center hover:shadow-lift transition">
+        <p class="num text-[44px] sm:text-[52px] text-gold leading-none">2<span class="text-[20px] sm:text-[26px]">×/月</span></p>
+        <p class="mt-2 text-[13px] tracking-wider text-smoke font-bold">SESSIONS</p>
+        <p class="mt-3 text-[15px] font-bold leading-relaxed">月2回の<br>オンライン作業会</p>
+      </article>
+      <article class="card p-6 sm:p-7 text-center hover:shadow-lift transition">
+        <p class="num text-[44px] sm:text-[52px] text-gold leading-none">24/7</p>
+        <p class="mt-2 text-[13px] tracking-wider text-smoke font-bold">CHAT</p>
+        <p class="mt-3 text-[15px] font-bold leading-relaxed">質問チャット<br>常時稼働</p>
+      </article>
+    </div>
+
+    <div class="mt-10 text-center reveal">
+      <a href="#join" class="btn-cta text-[16px]">
+        詳しく見る <span class="arrow" aria-hidden="true">→</span>
+      </a>
+      <p class="mt-3 text-[12px] text-smoke">在籍期間縛りなし／月額 ¥4,400（税込）</p>
     </div>
   </div>
 </section>
 
 <!-- ===== §02 共感パート ===== -->
-<section data-slide="2" class="snap-slide bg-paper2/40 border-y border-ink/5">
+<section data-slide="3" class="snap-slide bg-paper2/40 border-y border-ink/5">
   <div class="max-w-read mx-auto px-5 py-20 sm:py-24">
     <div class="text-center reveal">
       <p class="serial text-xs mb-4">No. 02 / Empathy</p>
@@ -470,7 +500,7 @@
 </section>
 
 <!-- ===== §03 5つの壁 ===== -->
-<section data-slide="3" class="snap-slide relative">
+<section data-slide="4" class="snap-slide relative">
   <div class="max-w-read mx-auto px-5 py-20 sm:py-24">
     <div class="text-center reveal">
       <p class="serial text-xs mb-4">No. 03 / Five Walls</p>
@@ -483,7 +513,7 @@
 </section>
 
 <!-- ===== §04 解決提示 ===== -->
-<section data-slide="4" class="snap-slide relative navy-bg text-white overflow-hidden">
+<section data-slide="5" class="snap-slide relative navy-bg text-white overflow-hidden">
   <div class="particles" aria-hidden="true">
     <span style="left:5%;  width:2px; height:2px; animation-duration: 28s;"></span>
     <span style="left:18%; animation-duration: 36s; animation-delay: 4s;"></span>
@@ -507,7 +537,7 @@
 </section>
 
 <!-- ===== §05 提供内容 ===== -->
-<section data-slide="5" class="snap-slide relative">
+<section data-slide="6" class="snap-slide relative">
   <div class="max-w-read mx-auto px-5 py-20 sm:py-24">
     <div class="text-center reveal">
       <p class="serial text-xs mb-4">No. 05 / What's Inside</p>
@@ -520,7 +550,7 @@
 </section>
 
 <!-- ===== §06 ビフォーアフター ===== -->
-<section data-slide="6" class="snap-slide bg-paper2/40 border-y border-ink/5">
+<section data-slide="7" class="snap-slide bg-paper2/40 border-y border-ink/5">
   <div class="max-w-read mx-auto px-5 py-20 sm:py-24">
     <div class="text-center reveal">
       <p class="serial text-xs mb-4">No. 06 / Before & After</p>
@@ -532,28 +562,48 @@
   </div>
 </section>
 
-<!-- ===== Mid CTA ===== -->
-<section data-slide="7" class="snap-slide relative navy-bg text-white overflow-hidden">
+<!-- ===== Mid CTA（視認性ブースト版） ===== -->
+<section data-slide="8" class="snap-slide relative navy-bg text-white overflow-hidden">
   <div class="particles" aria-hidden="true">
-    <span style="left:10%; animation-duration: 30s;"></span>
-    <span style="left:35%; animation-duration: 38s; animation-delay: 5s;"></span>
-    <span style="left:60%; animation-duration: 32s; animation-delay: 9s;"></span>
-    <span style="left:85%; animation-duration: 42s; animation-delay: 14s;"></span>
+    <span style="left:6%;  animation-duration: 28s;"></span>
+    <span style="left:18%; animation-duration: 36s; animation-delay: 4s;"></span>
+    <span style="left:30%; animation-duration: 40s; animation-delay: 9s;"></span>
+    <span style="left:42%; animation-duration: 32s; animation-delay: 2s;"></span>
+    <span style="left:55%; animation-duration: 44s; animation-delay: 13s;"></span>
+    <span style="left:68%; animation-duration: 30s; animation-delay: 6s;"></span>
+    <span style="left:80%; animation-duration: 38s; animation-delay: 11s;"></span>
+    <span style="left:92%; animation-duration: 34s; animation-delay: 17s;"></span>
   </div>
-  <div class="relative max-w-read mx-auto px-5 py-16 sm:py-20 text-center reveal">
-    <p class="hand text-mint text-[18px]">いま動けば、来月のあなたは違う。</p>
-    <h3 class="serif font-black text-[26px] sm:text-[36px] mt-3 leading-snug">
-      止まっていた手を、<span class="marker-gold text-white">もう一度動かす。</span>
+
+  <!-- 巨大装飾文字（背景） -->
+  <div aria-hidden="true" class="absolute inset-0 flex items-center justify-center pointer-events-none select-none">
+    <span class="num italic text-[22vh] sm:text-[28vh] leading-none text-white/[.04] tracking-tighter">PLAY</span>
+  </div>
+
+  <div class="relative max-w-read mx-auto px-5 text-center reveal">
+    <p class="hand text-mint text-[18px] sm:text-[22px] tracking-wider">いま動けば、来月のあなたは違う。</p>
+
+    <h3 class="serif font-black text-[40px] sm:text-[64px] mt-5 leading-[1.2] tracking-tight">
+      止まっていた手を、<br>
+      <span class="marker-gold text-white">もう一度動かす。</span>
     </h3>
-    <a href="#join" class="btn-cta mt-8 text-[17px]">
-      部活に参加してみる <span class="arrow" aria-hidden="true">→</span>
+
+    <div class="mt-8 flex justify-center items-center gap-3 text-mint/80 text-[12px] tracking-[.4em]">
+      <span class="block w-8 h-px bg-mint/50"></span>
+      <span>JOIN US</span>
+      <span class="block w-8 h-px bg-mint/50"></span>
+    </div>
+
+    <a href="#join" class="btn-cta btn-cta-pulse mt-8 text-[18px] sm:text-[20px] px-12 py-5">
+      遊びに参加する <span class="arrow" aria-hidden="true">→</span>
     </a>
-    <p class="mt-4 text-[12px] text-white/70">在籍期間縛りなし／いつでも退会OK</p>
+
+    <p class="mt-5 text-[12px] text-white/70">在籍期間縛りなし／いつでも退会OK</p>
   </div>
 </section>
 
 <!-- ===== §07 おすすめ／向かない方 ===== -->
-<section data-slide="8" class="snap-slide relative">
+<section data-slide="9" class="snap-slide relative">
   <div class="max-w-read mx-auto px-5 py-20 sm:py-24">
     <div class="text-center reveal">
       <p class="serial text-xs mb-4">No. 07 / For You ?</p>
@@ -566,7 +616,7 @@
 </section>
 
 <!-- ===== §08 運営者紹介 ===== -->
-<section data-slide="9" class="snap-slide bg-paper2/40 border-y border-ink/5">
+<section data-slide="10" class="snap-slide bg-paper2/40 border-y border-ink/5">
   <div class="max-w-read mx-auto px-5 py-20 sm:py-24">
     <div class="text-center reveal">
       <p class="serial text-xs mb-4">No. 08 / Founder</p>
@@ -578,16 +628,16 @@
   </div>
 </section>
 
-<!-- ===== §09 FAQ（インタラクティブ要素として残す） ===== -->
-<section data-slide="10" class="snap-free relative">
-  <div class="max-w-3xl mx-auto px-5 py-20 sm:py-24">
+<!-- ===== §09 FAQ 1/2 ===== -->
+<section data-slide="11" class="snap-slide relative">
+  <div class="max-w-3xl mx-auto px-5 py-12 sm:py-24">
     <div class="text-center reveal flex-none">
-      <p class="serial text-xs mb-4">No. 09 / FAQ</p>
-      <h2 class="serif font-black text-[28px] sm:text-[40px] leading-snug">よくある質問</h2>
-      <div class="divider mt-6"></div>
+      <p class="serial text-xs mb-3">No. 09 / FAQ — 1 / 2</p>
+      <h2 class="serif font-black text-[26px] sm:text-[40px] leading-snug">よくある質問<span class="hand text-gold text-[18px] sm:text-[22px] ml-2">（前半）</span></h2>
+      <div class="divider mt-5"></div>
     </div>
 
-    <div class="faq-scroll mt-8 reveal">
+    <div class="mt-6 reveal">
       <details class="faq">
         <summary><span class="q-mark">Q.</span><span>AIスクールとはどう違うの？</span><span class="toggle" aria-hidden="true">+</span></summary>
         <p class="a">スクールは"教わる場所"、AIあそ部は"実践しながら身につける場所"です。月2回みんなで集まって手を動かしたり、質問チャットで困りごとを共有したり。教わって終わりじゃなく、使えるようになるまで伴走するイメージです。</p>
@@ -597,7 +647,7 @@
         <p class="a">むしろ初心者にこそおすすめです。「動画で見ればわかるけど、一人だと止まる」を解消するために作りました。登録で迷う、プロンプトで迷う、というところから一緒にやっていきます。</p>
       </details>
       <details class="faq">
-        <summary><span class="q-mark">Q.</span><span>ChatGPTは使ったことがないのですが、参加できますか？</span><span class="toggle" aria-hidden="true">+</span></summary>
+        <summary><span class="q-mark">Q.</span><span>ChatGPTは使ったことがないのですが…？</span><span class="toggle" aria-hidden="true">+</span></summary>
         <p class="a">もちろん大丈夫です。登録の仕方や基本の使い方から、一緒に進めていきます。</p>
       </details>
       <details class="faq">
@@ -605,11 +655,25 @@
         <p class="a">大丈夫です。AIあそ部は"先に進んでいる人"のための場所ではなく、"止まっている人が動き出す"ための場所です。比べる必要も、急ぐ必要もありません。自分のペースで進められるように設計しています。</p>
       </details>
       <details class="faq">
-        <summary><span class="q-mark">Q.</span><span>質問するのが苦手なんですが、それでも参加できますか？</span><span class="toggle" aria-hidden="true">+</span></summary>
+        <summary><span class="q-mark">Q.</span><span>質問するのが苦手でも参加できますか？</span><span class="toggle" aria-hidden="true">+</span></summary>
         <p class="a">大丈夫です。最初は見ているだけ、聞いているだけでもOKです。慣れてきたら、自分のタイミングで質問してみてください。「こんなこと聞いていいのかな」と思うレベルの質問こそ、歓迎です。</p>
       </details>
+    </div>
+  </div>
+</section>
+
+<!-- ===== §09 FAQ 2/2 ===== -->
+<section data-slide="12" class="snap-slide relative bg-paper2/30 border-y border-ink/5">
+  <div class="max-w-3xl mx-auto px-5 py-12 sm:py-24">
+    <div class="text-center reveal flex-none">
+      <p class="serial text-xs mb-3">No. 09 / FAQ — 2 / 2</p>
+      <h2 class="serif font-black text-[26px] sm:text-[40px] leading-snug">よくある質問<span class="hand text-gold text-[18px] sm:text-[22px] ml-2">（後半）</span></h2>
+      <div class="divider mt-5"></div>
+    </div>
+
+    <div class="mt-6 reveal">
       <details class="faq">
-        <summary><span class="q-mark">Q.</span><span>過去にコミュニティや講座で挫折した経験があります。今度こそ続けられるか不安です。</span><span class="toggle" aria-hidden="true">+</span></summary>
+        <summary><span class="q-mark">Q.</span><span>過去に挫折した経験があります。今度こそ続けられるか不安。</span><span class="toggle" aria-hidden="true">+</span></summary>
         <p class="a">その気持ち、よく分かります。だからこそ、AIあそ部は"続けやすさ"を最優先に設計しています。月2回のゆるいペース、アーカイブ視聴、気軽に聞ける質問チャット。「続けられない理由」を、できる限り取り除いています。</p>
       </details>
       <details class="faq">
@@ -617,7 +681,7 @@
         <p class="a">月2回の勉強会（各60分）に出られるとベストですが、参加できなかった回はアーカイブで後から見られます。忙しい時期は無理せず、自分のペースでOKです。</p>
       </details>
       <details class="faq">
-        <summary><span class="q-mark">Q.</span><span>リアルタイムの勉強会に参加できない月があっても大丈夫ですか？</span><span class="toggle" aria-hidden="true">+</span></summary>
+        <summary><span class="q-mark">Q.</span><span>勉強会に参加できない月があっても大丈夫？</span><span class="toggle" aria-hidden="true">+</span></summary>
         <p class="a">まったく問題ありません。アーカイブで後から見られますし、質問チャットは常時動いています。「毎回出られないから諦める」必要は、一切ありません。</p>
       </details>
       <details class="faq">
@@ -625,47 +689,39 @@
         <p class="a">日々のSNS発信、AI画像作成、公式LINE活用、集客導線づくりなどに、AIを実際に使えるようになることを目指しています。"知識を増やす"ではなく、"日常で使える"がゴールです。</p>
       </details>
       <details class="faq">
-        <summary><span class="q-mark">Q.</span><span>退会したいときはどうすればいいですか？</span><span class="toggle" aria-hidden="true">+</span></summary>
+        <summary><span class="q-mark">Q.</span><span>退会したいときはどうすればいい？</span><span class="toggle" aria-hidden="true">+</span></summary>
         <p class="a">いつでも退会できます。在籍期間の縛りもありません。「合わなかったら気軽に抜ける」で問題ない設計にしています。</p>
       </details>
     </div>
   </div>
 </section>
 
-<!-- ===== §10 料金・参加方法（インタラクティブ要素として残す） ===== -->
-<section id="join" data-slide="11" class="snap-free bg-paper2/40 border-t border-ink/5">
-  <div class="max-w-read mx-auto px-5 py-20 sm:py-28">
+<!-- ===== §10 料金プラン（Join 1/2） ===== -->
+<section id="join" data-slide="13" class="snap-slide bg-paper2/40 border-t border-ink/5">
+  <div class="max-w-read mx-auto px-5 py-12 sm:py-28">
     <div class="text-center reveal flex-none">
-      <p class="serial text-xs mb-4">No. 10 / Join</p>
-      <h2 class="serif font-black text-[28px] sm:text-[42px] leading-snug">参加方法</h2>
-      <div class="divider mt-6"></div>
-    </div>
-
-    <div class="join-scroll mt-8">
-
-    <!-- 補助画像（モバイルでは非表示） -->
-    <div class="img-hero max-w-[420px] mx-auto mt-4 reveal hidden sm:block">
-      <img src="ChatGPT%20Image%202026%E5%B9%B45%E6%9C%889%E6%97%A5%2012_09_46%20(9).png"
-           alt='FAQと参加方法の概要：月額4,400円（税込）／月2回の勉強会・質問チャット・アーカイブ視聴・限定情報共有。申込→決済→招待が届く。'>
+      <p class="serial text-xs mb-3">No. 10 / Join — 1 / 2</p>
+      <h2 class="serif font-black text-[26px] sm:text-[42px] leading-snug">料金プラン</h2>
+      <div class="divider mt-5"></div>
     </div>
 
     <!-- pricing card -->
     <div class="mt-6 sm:mt-14 max-w-[560px] mx-auto reveal">
-      <div class="card p-8 sm:p-10 relative overflow-hidden">
+      <div class="card p-7 sm:p-10 relative overflow-hidden">
         <div class="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-mint to-gold"></div>
         <p class="hand text-gold">Monthly Plan</p>
-        <div class="mt-3 flex items-baseline gap-2">
-          <span class="num text-[64px] sm:text-[80px] leading-none font-bold text-ink">¥4,400</span>
+        <div class="mt-2 flex items-baseline gap-2">
+          <span class="num text-[56px] sm:text-[80px] leading-none font-bold text-ink">¥4,400</span>
           <span class="text-smoke">/月（税込）</span>
         </div>
-        <ul class="mt-7 space-y-3 text-[15px]">
+        <ul class="mt-6 space-y-2.5 text-[14px] sm:text-[15px]">
           <li class="flex gap-3"><span class="text-mintD font-bold">✓</span>月2回のオンライン勉強会・作業会</li>
           <li class="flex gap-3"><span class="text-mintD font-bold">✓</span>質問チャットへのアクセス</li>
           <li class="flex gap-3"><span class="text-mintD font-bold">✓</span>過去アーカイブの視聴</li>
           <li class="flex gap-3"><span class="text-mintD font-bold">✓</span>メンバー限定の情報共有</li>
         </ul>
 
-        <a href="#" class="btn-cta w-full mt-8 text-[17px]">
+        <a href="#" class="btn-cta w-full mt-7 text-[17px]">
           参加を申し込む <span class="arrow" aria-hidden="true">→</span>
         </a>
         <p class="mt-3 text-center text-[12px] text-smoke">
@@ -673,17 +729,55 @@
         </p>
       </div>
     </div>
+  </div>
+</section>
 
-    <p class="mt-10 text-center text-[13px] text-smoke reveal">
-      在籍期間の縛りはありません。「ちょっと試してみる」感覚で、気軽に参加してください。
-    </p>
+<!-- ===== §10 参加までの流れ（Join 2/2） ===== -->
+<section data-slide="14" class="snap-slide bg-paper2/40 border-t border-ink/5">
+  <div class="max-w-read mx-auto px-5 py-12 sm:py-28">
+    <div class="text-center reveal flex-none">
+      <p class="serial text-xs mb-3">No. 10 / Join — 2 / 2</p>
+      <h2 class="serif font-black text-[26px] sm:text-[42px] leading-snug">参加までの流れ</h2>
+      <div class="divider mt-5"></div>
+    </div>
 
-    </div><!-- /.join-scroll -->
+    <div class="mt-10 max-w-[520px] mx-auto reveal">
+      <ol class="space-y-4">
+        <li class="card p-5 flex items-start gap-5">
+          <span class="num text-3xl text-gold leading-none flex-none">01</span>
+          <div>
+            <p class="font-bold text-[16px]">下のボタンから申し込み</p>
+            <p class="text-[13px] text-smoke mt-1 leading-relaxed">クレジットカードで1分。</p>
+          </div>
+        </li>
+        <li class="card p-5 flex items-start gap-5">
+          <span class="num text-3xl text-gold leading-none flex-none">02</span>
+          <div>
+            <p class="font-bold text-[16px]">招待メールが届く</p>
+            <p class="text-[13px] text-smoke mt-1 leading-relaxed">決済完了後、すぐにメールでお届け。</p>
+          </div>
+        </li>
+        <li class="card p-5 flex items-start gap-5">
+          <span class="num text-3xl text-gold leading-none flex-none">03</span>
+          <div>
+            <p class="font-bold text-[16px]">参加完了。</p>
+            <p class="text-[13px] text-smoke mt-1 leading-relaxed">最初の勉強会からどうぞ。</p>
+          </div>
+        </li>
+      </ol>
+    </div>
+
+    <div class="mt-8 text-center reveal">
+      <a href="#" class="btn-cta text-[17px]">
+        参加を申し込む <span class="arrow" aria-hidden="true">→</span>
+      </a>
+      <p class="mt-3 text-[12px] text-smoke">「ちょっと試してみる」感覚でどうぞ。</p>
+    </div>
   </div>
 </section>
 
 <!-- ===== §11 クロージング ===== -->
-<section data-slide="12" class="snap-slide relative navy-bg text-white overflow-hidden">
+<section data-slide="15" class="snap-slide relative navy-bg text-white overflow-hidden">
   <div class="particles" aria-hidden="true">
     <span style="left:4%;  animation-duration: 28s;"></span>
     <span style="left:14%; animation-duration: 36s; animation-delay: 4s;"></span>
