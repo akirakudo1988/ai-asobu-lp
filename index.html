@@ -297,6 +297,39 @@
       padding-bottom: 0 !important;
     }
 
+    /* === HERO (slide 1): has badge + CTA + safety bullets, so smaller image === */
+    body > section[data-slide="1"] {
+      justify-content: flex-start;
+      padding-top: 36px;
+      padding-bottom: 24px;
+    }
+    body > section[data-slide="1"] .img-hero img {
+      max-height: 48dvh;
+    }
+    body > section[data-slide="1"] .img-hero {
+      margin-top: 16px;
+    }
+    body > section[data-slide="1"] .mt-12 {
+      margin-top: 20px !important;
+    }
+
+    /* === CLOSING (slide 12): has CTA + needs footer visible === */
+    body > section[data-slide="12"] {
+      justify-content: flex-start;
+      padding-top: 28px;
+      padding-bottom: 16px;
+    }
+    body > section[data-slide="12"] .img-hero img {
+      max-height: 44dvh;
+    }
+    body > section[data-slide="12"] .mt-12 {
+      margin-top: 16px !important;
+    }
+    /* Hide floating CTA on the last slide so it doesn't cover the closing CTA */
+    body.on-last .float-cta { transform: translateY(120%) !important; }
+    /* Hide standalone footer on mobile — info moves inside closing slide */
+    body > footer { display: none; }
+
     /* Swipe-up hint at bottom of each slide */
     .swipe-hint {
       display: flex;
@@ -677,6 +710,13 @@
       </a>
       <p class="mt-4 text-[12px] text-white/70">在籍期間縛りなし／いつでも退会OK</p>
     </div>
+
+    <!-- Mobile inline footer (shown only on mobile snap mode) -->
+    <div class="mt-8 sm:hidden text-[10.5px] text-white/55 text-center leading-[1.9]">
+      <p class="serif font-bold text-white/90 text-sm mb-1">AIあそ部</p>
+      <p>運営：工藤 晶（AI講師／AIあそ部 部長）</p>
+      <p>© AIあそ部. All rights reserved.</p>
+    </div>
   </div>
 </section>
 
@@ -755,13 +795,15 @@
 
     // active dot tracking
     const dotEls = dots.querySelectorAll('a');
+    const lastSlideId = sections[sections.length - 1].id;
     const setActive = (id) => {
       dotEls.forEach(d => d.classList.toggle('active', d.dataset.target === id));
-      // also flip dot color theme depending on the section bg
       const cur = document.getElementById(id);
       if (!cur) return;
       const dark = cur.classList.contains('navy-bg');
       dots.classList.toggle('on-dark', dark);
+      // hide floating CTA on the last (closing) slide
+      document.body.classList.toggle('on-last', id === lastSlideId);
     };
 
     const slideIo = new IntersectionObserver((entries) => {
