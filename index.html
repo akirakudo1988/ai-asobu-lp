@@ -232,7 +232,8 @@
     }
 
     /* Image-only "slide" sections become full viewport snap targets */
-    body > section.snap-slide {
+    body > section.snap-slide,
+    body > section.snap-free {
       scroll-snap-align: start;
       scroll-snap-stop: always;
       min-height: 100dvh;
@@ -240,16 +241,34 @@
       display: flex;
       flex-direction: column;
       justify-content: center;
-      padding-top: 16px;
-      padding-bottom: 96px;  /* room for floating CTA + hint */
+      padding-top: 12px;
+      padding-bottom: 88px;  /* room for floating CTA + hint */
       position: relative;
       overflow: hidden;
     }
 
-    /* Long content sections (FAQ / Join) — NOT snap targets, free scroll */
+    /* Long content (FAQ / Join) — internal scroll inside the slide */
     body > section.snap-free {
-      scroll-snap-align: none;
-      min-height: auto;
+      justify-content: flex-start;
+      padding-top: 24px;
+    }
+    body > section.snap-free .max-w-read,
+    body > section.snap-free .max-w-3xl {
+      flex: 1;
+      min-height: 0;
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+    }
+    .faq-scroll, .join-scroll {
+      flex: 1;
+      min-height: 0;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+      overscroll-behavior: contain;
+      padding-right: 4px;
+      mask-image: linear-gradient(to bottom, black calc(100% - 24px), transparent);
+      -webkit-mask-image: linear-gradient(to bottom, black calc(100% - 24px), transparent);
     }
 
     /* Hide fixed header on mobile — it competes with swipe UI */
@@ -258,16 +277,24 @@
       padding-top: 0 !important;
       padding-bottom: 0 !important;
     }
-    /* Constrain hero image to fit one viewport */
+    /* Larger image on mobile — fill the screen */
     body > section.snap-slide .img-hero img {
-      max-height: 64dvh;
+      max-height: 84dvh;
       width: auto;
       max-width: 100%;
       margin: 0 auto;
+      border-radius: 18px;
     }
     body > section.snap-slide .img-hero {
       display: flex;
       justify-content: center;
+    }
+    /* Hide section number labels on mobile — image already shows it */
+    body > section.snap-slide .serial { display: none; }
+    /* Compress vertical padding so the image gets max room */
+    body > section.snap-slide > .max-w-read {
+      padding-top: 0 !important;
+      padding-bottom: 0 !important;
     }
 
     /* Swipe-up hint at bottom of each slide */
@@ -521,13 +548,13 @@
 <!-- ===== §09 FAQ（インタラクティブ要素として残す） ===== -->
 <section data-slide="10" class="snap-free relative">
   <div class="max-w-3xl mx-auto px-5 py-20 sm:py-24">
-    <div class="text-center reveal">
+    <div class="text-center reveal flex-none">
       <p class="serial text-xs mb-4">No. 09 / FAQ</p>
       <h2 class="serif font-black text-[28px] sm:text-[40px] leading-snug">よくある質問</h2>
       <div class="divider mt-6"></div>
     </div>
 
-    <div class="mt-12 reveal">
+    <div class="faq-scroll mt-8 reveal">
       <details class="faq">
         <summary><span class="q-mark">Q.</span><span>AIスクールとはどう違うの？</span><span class="toggle" aria-hidden="true">+</span></summary>
         <p class="a">スクールは"教わる場所"、AIあそ部は"実践しながら身につける場所"です。月2回みんなで集まって手を動かしたり、質問チャットで困りごとを共有したり。教わって終わりじゃなく、使えるようになるまで伴走するイメージです。</p>
@@ -575,20 +602,22 @@
 <!-- ===== §10 料金・参加方法（インタラクティブ要素として残す） ===== -->
 <section id="join" data-slide="11" class="snap-free bg-paper2/40 border-t border-ink/5">
   <div class="max-w-read mx-auto px-5 py-20 sm:py-28">
-    <div class="text-center reveal">
+    <div class="text-center reveal flex-none">
       <p class="serial text-xs mb-4">No. 10 / Join</p>
       <h2 class="serif font-black text-[28px] sm:text-[42px] leading-snug">参加方法</h2>
       <div class="divider mt-6"></div>
     </div>
 
-    <!-- 補助画像 -->
-    <div class="img-hero max-w-[420px] mx-auto mt-12 reveal">
+    <div class="join-scroll mt-8">
+
+    <!-- 補助画像（モバイルでは非表示） -->
+    <div class="img-hero max-w-[420px] mx-auto mt-4 reveal hidden sm:block">
       <img src="ChatGPT%20Image%202026%E5%B9%B45%E6%9C%889%E6%97%A5%2012_09_46%20(9).png"
            alt='FAQと参加方法の概要：月額4,400円（税込）／月2回の勉強会・質問チャット・アーカイブ視聴・限定情報共有。申込→決済→招待が届く。'>
     </div>
 
     <!-- pricing card -->
-    <div class="mt-14 max-w-[560px] mx-auto reveal">
+    <div class="mt-6 sm:mt-14 max-w-[560px] mx-auto reveal">
       <div class="card p-8 sm:p-10 relative overflow-hidden">
         <div class="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-mint to-gold"></div>
         <p class="hand text-gold">Monthly Plan</p>
@@ -615,6 +644,8 @@
     <p class="mt-10 text-center text-[13px] text-smoke reveal">
       在籍期間の縛りはありません。「ちょっと試してみる」感覚で、気軽に参加してください。
     </p>
+
+    </div><!-- /.join-scroll -->
   </div>
 </section>
 
